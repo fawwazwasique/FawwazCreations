@@ -1,0 +1,5 @@
+{
+  "name": "App Launcher",
+  "description": "A central dashboard to launch and manage multiple web applications from a single interface.",
+  "requestFramePermissions": []
+}
