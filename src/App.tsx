@@ -20,7 +20,13 @@ import {
   Activity,
   Zap,
   Layers,
-  MousePointer2
+  MousePointer2,
+  Mail,
+  Phone,
+  Calendar,
+  X,
+  Clock,
+  ArrowRight
 } from "lucide-react";
 
 interface AppConfig {
@@ -86,6 +92,94 @@ const FawwazLogo = ({ className = "" }: { className?: string }) => (
     </div>
   </motion.div>
 );
+
+const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="relative w-full max-w-lg overflow-hidden rounded-[2.5rem] glass-card p-8 sm:p-12"
+          >
+            <button 
+              onClick={onClose}
+              className="absolute right-8 top-8 rounded-full bg-white/5 p-2 hover:bg-white/10 transition-colors"
+            >
+              <X className="h-5 w-5 text-zinc-400" />
+            </button>
+
+            <div className="mb-10">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-1.5 w-1.5 rounded-full bg-violet-500 animate-pulse" />
+                <span className="text-xs font-bold tracking-[0.3em] text-violet-400 uppercase">Support Center</span>
+              </div>
+              <h3 className="text-4xl font-black tracking-tight text-white">Get in Touch</h3>
+            </div>
+
+            <div className="space-y-6 mb-12">
+              <a 
+                href="mailto:fawwazwasique@gmail.com"
+                className="group flex items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-violet-500/30 transition-all"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-500/20 text-violet-400 group-hover:bg-violet-500 group-hover:text-white transition-all">
+                  <Mail className="h-6 w-6" />
+                </div>
+                <div>
+                  <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Email Address</div>
+                  <div className="text-lg font-bold text-white">fawwazwasique@gmail.com</div>
+                </div>
+              </a>
+
+              <a 
+                href="tel:+918681896147"
+                className="group flex items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-fuchsia-500/30 transition-all"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-fuchsia-500/20 text-fuchsia-400 group-hover:bg-fuchsia-500 group-hover:text-white transition-all">
+                  <Phone className="h-6 w-6" />
+                </div>
+                <div>
+                  <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Phone Number</div>
+                  <div className="text-lg font-bold text-white">+91 8681896147</div>
+                </div>
+              </a>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+              <button className="relative w-full flex items-center justify-between gap-4 p-6 rounded-2xl bg-[#0a0a0a] border border-white/10 hover:border-white/20 transition-all">
+                <div className="flex items-center gap-6">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white">
+                    <Calendar className="h-6 w-6" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Availability</div>
+                    <div className="text-lg font-bold text-white">Schedule a Visit</div>
+                  </div>
+                </div>
+                <ArrowRight className="h-5 w-5 text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+              </button>
+            </div>
+
+            <div className="mt-10 flex items-center justify-center gap-3 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">
+              <Clock className="h-3 w-3" />
+              Response Time: &lt; 2 Hours
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+};
 
 const TiltCard = ({ app, index, onClick }: { app: AppConfig; index: number; onClick: () => void; key?: string | number }) => {
   const x = useMotionValue(0);
@@ -195,6 +289,7 @@ export default function App() {
   const [activeApp, setActiveApp] = useState<AppConfig | null>(null);
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
   const [isLoading, setIsLoading] = useState(true);
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 3500);
@@ -212,6 +307,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#030303] text-zinc-100 font-sans selection:bg-violet-500/30">
       <AnimatedBackground />
+      <SupportModal isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
 
       <AnimatePresence>
         {isLoading && (
@@ -332,7 +428,12 @@ export default function App() {
               <div className="flex items-center gap-4">
                 <div className="hidden md:flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-zinc-500">
                   <span className="hover:text-violet-400 cursor-pointer transition-colors">DOCS</span>
-                  <span className="hover:text-violet-400 cursor-pointer transition-colors">SUPPORT</span>
+                  <span 
+                    onClick={() => setIsSupportOpen(true)}
+                    className="hover:text-violet-400 cursor-pointer transition-colors"
+                  >
+                    SUPPORT
+                  </span>
                   <span className="hover:text-violet-400 cursor-pointer transition-colors">API</span>
                 </div>
                 <button className="rounded-xl bg-white/5 p-2.5 border border-white/10 hover:bg-white/10 transition-all">
