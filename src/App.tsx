@@ -26,7 +26,8 @@ import {
   Calendar,
   X,
   Clock,
-  ArrowRight
+  ArrowRight,
+  Target
 } from "lucide-react";
 
 interface AppConfig {
@@ -57,6 +58,15 @@ const APPS: AppConfig[] = [
     description: "Advanced sales quotation engine with dynamic pricing models.",
     gradient: "from-fuchsia-600 to-rose-600",
     glow: "shadow-fuchsia-500/20",
+  },
+  {
+    id: "bd-tracking-dashboard",
+    name: "BD Tracking Dashboard",
+    url: "https://bdtrackerethen.netlify.app/",
+    icon: Target,
+    description: "Comprehensive business development tracking and pipeline management.",
+    gradient: "from-cyan-600 to-blue-600",
+    glow: "shadow-cyan-500/20",
   },
 ];
 
@@ -490,7 +500,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid gap-8 sm:grid-cols-2 lg:gap-10">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
                 {APPS.map((app, index) => (
                   <TiltCard 
                     key={app.id} 
