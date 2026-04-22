@@ -27,7 +27,8 @@ import {
   X,
   Clock,
   ArrowRight,
-  Target
+  Target,
+  Box
 } from "lucide-react";
 
 interface AppConfig {
@@ -67,6 +68,15 @@ const APPS: AppConfig[] = [
     description: "Comprehensive business development tracking and pipeline management.",
     gradient: "from-cyan-600 to-blue-600",
     glow: "shadow-cyan-500/20",
+  },
+  {
+    id: "ar-dashboard",
+    name: "AR Dashboard",
+    url: "https://maniranjan.netlify.app/",
+    icon: Box,
+    description: "Augmented Reality interface for immersive data visualization and spatial computing.",
+    gradient: "from-emerald-600 to-teal-600",
+    glow: "shadow-emerald-500/20",
   },
 ];
 
@@ -500,7 +510,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+              <div className="grid gap-8 sm:grid-cols-2 lg:gap-10">
                 {APPS.map((app, index) => (
                   <TiltCard 
                     key={app.id} 
