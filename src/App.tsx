@@ -28,7 +28,9 @@ import {
   Clock,
   ArrowRight,
   Target,
-  Box
+  Box,
+  User,
+  Info
 } from "lucide-react";
 
 interface AppConfig {
@@ -123,7 +125,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            className="absolute inset-0 bg-black/90 backdrop-blur-md"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -176,7 +178,10 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-              <button className="relative w-full flex items-center justify-between gap-4 p-6 rounded-2xl bg-[#0a0a0a] border border-white/10 hover:border-white/20 transition-all">
+              <a 
+                href="mailto:fawwazwasique@gmail.com?subject=Appointment%20Request"
+                className="relative w-full flex items-center justify-between gap-4 p-6 rounded-2xl bg-[#0a0a0a] border border-white/10 hover:border-white/20 transition-all"
+              >
                 <div className="flex items-center gap-6">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white">
                     <Calendar className="h-6 w-6" />
@@ -187,12 +192,88 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                   </div>
                 </div>
                 <ArrowRight className="h-5 w-5 text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
-              </button>
+              </a>
             </div>
 
             <div className="mt-10 flex items-center justify-center gap-3 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">
               <Clock className="h-3 w-3" />
               Response Time: &lt; 2 Hours
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const DocsModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/95 backdrop-blur-xl"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 30 }}
+            className="relative w-full max-w-2xl overflow-hidden rounded-[3rem] glass-card p-10 sm:p-14 border border-zinc-700/50"
+          >
+            <button 
+              onClick={onClose}
+              className="absolute right-10 top-10 rounded-full bg-white/5 p-3 hover:bg-white/10 transition-all"
+            >
+              <X className="h-6 w-6 text-zinc-400" />
+            </button>
+
+            <div className="flex items-center gap-5 mb-10">
+              <div className="flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-xl shadow-violet-500/20">
+                <User className="h-8 w-8" />
+              </div>
+              <div>
+                <h3 className="text-4xl font-black tracking-tight text-white">About Me</h3>
+                <p className="text-violet-400 font-mono text-xs font-bold tracking-[0.3em] uppercase mt-1">Founder @ Fawwaz Creations</p>
+              </div>
+            </div>
+
+            <div className="space-y-8 text-zinc-300 leading-relaxed text-lg">
+              <p className="font-medium">
+                Hello, I'm <span className="text-white font-bold">Fawwaz Wasique</span>. I am a passionate developer and creative professional dedicated to building immersive, high-performance digital ecosystems.
+              </p>
+              
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-violet-500/20 transition-all group">
+                  <Zap className="h-6 w-6 text-violet-400 mb-4 group-hover:scale-110 transition-transform" />
+                  <h4 className="text-white font-bold mb-2">Our Vision</h4>
+                  <p className="text-sm text-zinc-400 leading-normal">
+                    Transforming complex data into beautiful, intuitive interfaces that empower visionaries.
+                  </p>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-fuchsia-500/20 transition-all group">
+                  <Code2 className="h-6 w-6 text-fuchsia-400 mb-4 group-hover:scale-110 transition-transform" />
+                  <h4 className="text-white font-bold mb-2">Tech Stack</h4>
+                  <p className="text-sm text-zinc-400 leading-normal">
+                    Specializing in React, TypeScript, and high-level animation ecosystems like Motion.
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-zinc-400 text-sm italic border-l-2 border-violet-500/30 pl-5">
+                "We don't just build dashboards; we create command centers for the future of enterprise management."
+              </p>
+            </div>
+
+            <div className="mt-12 pt-8 border-t border-white/5 flex flex-wrap gap-4">
+               {["Innovation", "Precision", "Craftsmanship", "Performance"].map(tag => (
+                 <span key={tag} className="px-4 py-2 rounded-full bg-white/5 text-[10px] font-bold text-zinc-500 uppercase tracking-widest border border-white/5">
+                   {tag}
+                 </span>
+               ))}
             </div>
           </motion.div>
         </div>
@@ -278,29 +359,34 @@ const TiltCard = ({ app, index, onClick }: { app: AppConfig; index: number; onCl
   );
 };
 
-const AnimatedBackground = () => (
-  <div className="fixed inset-0 z-0 pointer-events-none">
-    <div className="absolute inset-0 aurora-bg opacity-40" />
-    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+const VideoBackground = () => (
+  <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    {/* Video Layer */}
+    <div className="absolute inset-0 bg-black">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="h-full w-full object-cover opacity-30 grayscale saturate-50"
+      >
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-screen-close-up-34356-large.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    {/* Overlays */}
+    <div className="absolute inset-0 aurora-bg opacity-40 mix-blend-color-dodge" />
+    <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay" />
     
-    {/* Floating Orbs */}
+    {/* Dynamic Orbs */}
     <motion.div 
-      className="absolute top-[20%] left-[10%] w-[30vw] h-[30vw] bg-violet-600/20 rounded-full blur-[120px]"
+      className="absolute top-[10%] -left-[10%] w-[50vw] h-[50vw] bg-violet-600/10 rounded-full blur-[150px]"
       animate={{ 
-        x: [0, 100, 0],
-        y: [0, 50, 0],
-        scale: [1, 1.2, 1]
+        scale: [1, 1.2, 1],
+        opacity: [0.1, 0.2, 0.1]
       }}
-      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-    />
-    <motion.div 
-      className="absolute bottom-[20%] right-[10%] w-[25vw] h-[25vw] bg-fuchsia-600/20 rounded-full blur-[120px]"
-      animate={{ 
-        x: [0, -80, 0],
-        y: [0, -40, 0],
-        scale: [1.2, 1, 1.2]
-      }}
-      transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      transition={{ duration: 10, repeat: Infinity }}
     />
   </div>
 );
@@ -310,6 +396,7 @@ export default function App() {
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
   const [isLoading, setIsLoading] = useState(true);
   const [isSupportOpen, setIsSupportOpen] = useState(false);
+  const [isDocsOpen, setIsDocsOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 3500);
@@ -326,8 +413,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#030303] text-zinc-100 font-sans selection:bg-violet-500/30">
-      <AnimatedBackground />
+      <VideoBackground />
       <SupportModal isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
+      <DocsModal isOpen={isDocsOpen} onClose={() => setIsDocsOpen(false)} />
 
       <AnimatePresence>
         {isLoading && (
@@ -447,7 +535,12 @@ export default function App() {
             {!activeApp && (
               <div className="flex items-center gap-4">
                 <div className="hidden md:flex items-center gap-6 text-[10px] font-bold tracking-[0.2em] text-zinc-500">
-                  <span className="hover:text-violet-400 cursor-pointer transition-colors">DOCS</span>
+                  <span 
+                    onClick={() => setIsDocsOpen(true)}
+                    className="hover:text-violet-400 cursor-pointer transition-colors"
+                  >
+                    DOCS
+                  </span>
                   <span 
                     onClick={() => setIsSupportOpen(true)}
                     className="hover:text-violet-400 cursor-pointer transition-colors"
